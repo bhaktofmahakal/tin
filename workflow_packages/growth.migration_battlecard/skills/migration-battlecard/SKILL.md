@@ -1,13 +1,13 @@
 ---
 name: migration-battlecard
-description: Build an evidence-based migration runbook, honest parity matrix, and switcher battlecard to displace an incumbent competitor.
+description: Build an evidence-based competitor switcher battlecard, friction teardown, and honest parity matrix to capture displacement demand.
 ---
 
-# Migration Battlecard Procedure
+# Competitor Switcher Battlecard Procedure
 
-Create an engineering-grade competitor teardown, honest architectural parity matrix, and zero-downtime cutover runbook for displacing an incumbent competitor.
+Create an engineering-grade competitor teardown, honest architectural parity matrix, and switcher messaging guide for displacing an incumbent competitor.
 
-This workflow is designed like an industrial engineering process: transforming unstructured product documentation and competitive friction into a rigorous, verifiable switcher asset. It produces `reports/MIGRATION_BATTLECARD.md`.
+This workflow is designed like an industrial engineering process: transforming unstructured product documentation and competitive friction into a rigorous, publication-ready switcher asset. It produces `reports/MIGRATION_BATTLECARD.md`.
 
 ## Inputs & Context Processing
 
@@ -30,16 +30,16 @@ This workflow is designed like an industrial engineering process: transforming u
 Follow the structural rules defined in `TAXONOMY.md` and the quality rubrics in `RUBRIC.md`:
 
 ### Section 1: Executive Summary & Switching Thesis
-- Define the single core reason engineering teams migrate away from the incumbent (e.g. unpredicted billing spikes at scale, lack of raw SQL access, closed-source vendor lock-in).
+- Define the single core reason technical teams migrate away from the incumbent (e.g. unpredicted billing spikes at scale, lack of raw SQL access, closed-source vendor lock-in).
 - State the quantified payoff: typical percentage reduction in annual SaaS spend and migration timeline.
 
 ### Section 2: Incumbent Lock-in & Friction Analysis
-- Classify the incumbent's friction vectors using the four classes from `TAXONOMY.md`:
+- Classify the incumbent's friction vectors using the structural classes from `TAXONOMY.md`:
   - Class A (Data Egress & Storage Inertia)
   - Class B (API & SDK Blast Radius)
   - Class C (Workflow & Cognitive Retraining Costs)
   - Class D (Commercial & Contractual Penalties)
-- Explain exactly how our product neutralizes each active friction vector.
+- Explain exactly how our product neutralizes each active friction vector to lower switching friction.
 
 ### Section 3: Honest Architectural Parity Matrix
 - Construct a detailed Markdown table evaluating five core dimensions:
@@ -52,25 +52,11 @@ Follow the structural rules defined in `TAXONOMY.md` and the quality rubrics in 
   `> [!NOTE] Where [Competitor] Still Holds an Advantage`
   Detail at least two areas where the incumbent has a legitimate edge (e.g. older legacy integrations, specific enterprise compliance frameworks, polished non-technical UI builders). Radical honesty establishes instant credibility with technical buyers.
 
-### Section 4: 4-Stage Zero-Downtime Migration Runbook
-- Provide step-by-step instructions for safely executing the migration without service interruption:
-  - **Stage 1: Shadow Dual-Write Ingestion:** Code snippet (e.g. middleware, reverse proxy, or dual-client setup) showing simultaneous emission to both endpoints.
-  - **Stage 2: Historical Backfill & Translation:** Script or CLI instructions for exporting data from the incumbent's API and transforming schema into our native format.
-  - **Stage 3: Delta Reconciliation & Verification:** Query or verification procedure to validate record parity and property alignment.
-  - **Stage 4: Atomic Cutover & Graceful Deprecation:** Switching production reads and maintaining a 7-day observation buffer before terminating the incumbent account.
-
-### Section 5: Switching Payback & TCO Economic Model
-- Present a concrete financial model based on the calculations in `RUBRIC.md`:
-  - Migration Engineering Investment (hours × standard blended engineering rate of $120/hr).
-  - Monthly SaaS Spend Comparison (Incumbent vs Target at 1x, 5x, and 10x volume scale).
-  - Breakeven Payback Period (in months).
-  - 3-Year Cumulative Net Savings.
-
-### Section 6: Technical Objection Counter-Playbook
-- Provide direct, engineering-grounded answers to the top three buyer objections:
-  1. *"What if our engineering team doesn't have bandwidth to migrate right now?"*
-  2. *"How do we guarantee we won't lose historical events or customer state?"*
-  3. *"What happens if we need to roll back during the transition?"*
+### Section 4: Switcher Positioning & Messaging Guide
+- Provide concrete, copy-paste messaging components for an unassailable `/vs/[competitor]` comparison page:
+  - **High-Intent Switcher Headline:** A punchy, differentiated hook targeting dissatisfied incumbent users.
+  - **Comparative Value Proposition:** 3 crisp technical bullet points highlighting architectural divergence.
+  - **Direct Buyer FAQ:** Honest answers to the top two switching objections (data retention continuity and feature parity).
 
 ---
 

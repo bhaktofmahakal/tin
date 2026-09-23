@@ -48,7 +48,7 @@ def test_manifest_schema_and_boundaries():
     assert definition["key"] == "growth.migration_battlecard"
     assert definition["executor"] == "codex.procedure"
     assert definition["schedule_modes"] == ["on_demand"]
-    assert definition["version"] == "1.0.0"
+    assert definition["version"] == "1.1.0"
 
     schema = definition["input_schema"]
     assert schema["type"] == "object"
@@ -127,74 +127,47 @@ def test_input_schema_validation_against_sample_payloads():
         jsonschema.validate(invalid_length, schema)
 
 
-def test_rubric_economic_payback_engine(rubric_engine):
-    """Verify the quantitative economic model embedded in RUBRIC.md."""
-    calc_payback = rubric_engine["calculate_migration_payback"]
-    calc_tco = rubric_engine["calculate_tco_trajectory"]
+def test_rubric_friction_scoring_engine(rubric_engine):
+    """Verify the friction and feasibility scoring model embedded in RUBRIC.md."""
     score_feasibility = rubric_engine["score_migration_feasibility"]
 
-    # Canonical viable migration: 40 hrs @ $120/hr ($4,800), saving $2,000/mo
-    result = calc_payback(
-        migration_hours=40,
-        blended_hourly_rate=120,
-        incumbent_monthly_cost=2500,
-        target_monthly_cost=500,
+    # Low friction scenario
+    low_res = score_feasibility(
+        lock_in_classes=["Class A"],
+        complexity_tier="low",
     )
-    assert result["migration_investment_usd"] == 4800.0
-    assert result["monthly_savings_usd"] == 2000.0
-    assert result["payback_months"] == 2.4
-    assert result["viable"] is True
-    assert result["status"] == "viable"
-    assert result["annual_net_savings_usd"] == 19200.0
+    assert 0 <= low_res["feasibility_score"] <= 100
+    assert low_res["risk_level"] in {"low", "moderate", "elevated"}
+    assert low_res["recommended_buffer_days"] == 3
 
-    # Extended payback (> 6 months but <= 12 months)
-    extended = calc_payback(
-        migration_hours=80,
-        blended_hourly_rate=150,
-        incumbent_monthly_cost=3000,
-        target_monthly_cost=1500,
-    )
-    assert extended["payback_months"] == 8.0
-    assert extended["viable"] is True
-    assert extended["status"] == "extended_payback"
-
-    # Cost-negative or neutral scenario
-    neutral = calc_payback(
-        migration_hours=20,
-        blended_hourly_rate=100,
-        incumbent_monthly_cost=1000,
-        target_monthly_cost=1200,
-    )
-    assert neutral["viable"] is False
-    assert neutral["payback_months"] is None
-    assert neutral["status"] == "cost_negative_or_neutral"
-
-    # Invalid input boundaries
-    with pytest.raises(ValueError):
-        calc_payback(
-            migration_hours=-10,
-            blended_hourly_rate=100,
-            incumbent_monthly_cost=1000,
-            target_monthly_cost=500,
-        )
-
-    # TCO Multi-year trajectory test
-    tco = calc_tco(incumbent_base_monthly=2000, target_base_monthly=600, years=3)
-    assert len(tco) == 3
-    assert tco[0]["year"] == 1
-    assert tco[0]["incumbent_annual_spend"] == 24000.0
-    assert tco[0]["target_annual_spend"] == 7200.0
-    assert tco[0]["annual_savings"] == 16800.0
-    assert tco[1]["annual_savings"] > tco[0]["annual_savings"]
-
-    # Feasibility scoring test
-    feasibility = score_feasibility(
+    # Medium friction scenario
+    med_res = score_feasibility(
         lock_in_classes=["Class A", "Class B"],
         complexity_tier="medium",
     )
-    assert 0 <= feasibility["feasibility_score"] <= 100
-    assert feasibility["risk_level"] in {"low", "moderate", "elevated"}
-    assert feasibility["recommended_buffer_days"] == 7
+    assert 0 <= med_res["feasibility_score"] <= 100
+    assert med_res["recommended_buffer_days"] == 7
+
+    # High complexity scenario
+    high_res = score_feasibility(
+        lock_in_classes=["Class A", "Class B", "Class C", "Class D"],
+        complexity_tier="high",
+    )
+    assert 0 <= high_res["feasibility_score"] <= 100
+    assert high_res["recommended_buffer_days"] == 21
+
+    # Invalid input boundaries
+    with pytest.raises(ValueError):
+        score_feasibility(
+            lock_in_classes=["Invalid Class"],
+            complexity_tier="low",
+        )
+
+    with pytest.raises(ValueError):
+        score_feasibility(
+            lock_in_classes=["Class A"],
+            complexity_tier="invalid_tier",
+        )
 
 
 def test_qualification_spec_conformance():

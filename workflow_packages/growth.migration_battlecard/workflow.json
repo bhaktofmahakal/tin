@@ -2,9 +2,9 @@
   "package_format": "tin-workflow-package-v1",
   "definition": {
     "key": "growth.migration_battlecard",
-    "title": "Competitor migration battlecard",
-    "description": "Build an evidence-based migration runbook, honest parity matrix, and switcher battlecard to displace an incumbent competitor.",
-    "version": "1.0.0",
+    "title": "Competitor switcher battlecard",
+    "description": "Build an evidence-based competitor switcher battlecard, friction teardown, and honest parity matrix to capture displacement demand.",
+    "version": "1.1.0",
     "executor": "codex.procedure",
     "schedule_modes": [
       "on_demand"
@@ -56,7 +56,7 @@
             "high"
           ],
           "default": "medium",
-          "title": "Expected technical migration complexity"
+          "title": "Expected technical switching complexity"
         }
       },
       "required": [

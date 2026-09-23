@@ -1,10 +1,10 @@
 # Switching Friction & Lock-in Taxonomy
 
-This document formalizes the mechanical vectors through which incumbents create artificial switching friction, and the architectural levers required to neutralize them.
+This document formalizes the mechanical vectors through which incumbents create artificial switching friction, and the structural levers required to neutralize them in a competitive battlecard.
 
 ## 1. Incumbent Lock-in Classification
 
-Incumbent vendors sustain retention through four structural categories of friction. Every migration battlecard must identify which categories apply to the target incumbent:
+Incumbent vendors sustain retention through four structural categories of friction. Every switcher battlecard must identify which categories apply to the target incumbent:
 
 ### Class A: Data Egress & Storage Inertia
 - **Proprietary Encoding:** Data exported in non-standard JSON blobs or obfuscated relational models requiring extensive rehydration.
@@ -29,21 +29,20 @@ Incumbent vendors sustain retention through four structural categories of fricti
 
 ---
 
-## 2. Migration Complexity Tiers
+## 2. Switching Complexity Tiers
 
-| Tier | Characteristics | Typical Cutover Window | Recommended Runbook Pattern |
+| Tier | Characteristics | Typical Buyer Friction | Key Objection to Address |
 | :--- | :--- | :--- | :--- |
-| **Low** | Stateless API replacement, simple SDK swap, no historical state required | 1-3 days | Direct drop-in replacement with feature flag |
-| **Medium** | Event streaming, client SDK migration, historical window backfill (30-90 days) | 1-2 weeks | Dual-write shadow ingestion with delta reconciliation |
-| **High** | Stateful datastore, terabyte/petabyte scale, multi-region compliance, complex RBAC | 2-6 weeks | Phased shadow ingestion, snapshot bulk loading, continuous replication |
+| **Low** | Stateless API replacement, simple SDK swap, no historical state required | Minimal | "Does the new API provide equivalent latency and reliability?" |
+| **Medium** | Event streaming, client SDK migration, historical window backfill (30-90 days) | Moderate | "How much developer time is required to swap client instrumentation?" |
+| **High** | Stateful datastore, terabyte/petabyte scale, multi-region compliance, complex RBAC | High | "How do we ensure zero data loss during the transition window?" |
 
 ---
 
-## 3. The 4-Stage Zero-Downtime Migration Model
+## 3. Friction Neutralization Principles
 
-Every production cutover must follow this sequence to guarantee zero data loss and eliminate downtime risk:
-
-1. **Stage 1 (Shadow Dual-Write):** Route new writes or events to both the incumbent and the target system simultaneously. The target operates in shadow mode; production reads remain on the incumbent.
-2. **Stage 2 (Historical Backfill & Translation):** Extract historical datasets using bounded parallel chunking. Execute schema transformations to normalize fields into target standards.
-3. **Stage 3 (Delta Reconciliation & Parity Verification):** Compare query results, record counts, and latency percentiles across both systems. Resolve any discrepancies in transformation rules.
-4. **Stage 4 (Atomic Traffic Cutover & Graceful Sunset):** Switch production read traffic to the target system via DNS, CDN, or feature flag. Keep the incumbent in passive sync for a 7-day observation buffer before account termination.
+When drafting competitive positioning, systematically map our advantages against the active lock-in classes:
+1. **Neutralize Class A (Data):** Emphasize open formats, direct SQL/warehouse access, or automated ingestion adapters.
+2. **Neutralize Class B (APIs):** Highlight drop-in API compatibility or standardized open protocols (e.g. OpenTelemetry, S3-compatible, SQL).
+3. **Neutralize Class C (Workflow):** Show ergonomic parity in core workflows and self-serve team onboarding.
+4. **Neutralize Class D (Commercial):** Expose pricing transparency, predictable usage limits, and absence of punitive seat taxes.
